@@ -1,43 +1,59 @@
-# Astro Starter Kit: Minimal
+# 🚀 Portfolio - Antonio Walter De Fusco
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Benvenuto nel repository del mio **Portfolio Personale**. Questo progetto è una vetrina interattiva delle mie competenze, progetti e premi, costruita con tecnologie web moderne per offrire prestazioni elevate e un'esperienza utente coinvolgente.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+🌐 **Live Demo:** [https://AntonioWalter.github.io/Portfolio/](https://AntonioWalter.github.io/Portfolio/)
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🛠️ Tech Stack
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+*   **Framework**: [Astro 5.0](https://astro.build/)
+*   **Component Library**: [React 19](https://react.dev/)
+*   **Styling**: CSS3, CSS Variables (Theming), Responsive Design
+*   **Languages**: TypeScript, HTML5
+*   **Deployment**: GitHub Pages (via GitHub Actions)
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🚀 Installazione e Sviluppo Locale
 
-Any static assets, like images, can be placed in the `public/` directory.
+Se vuoi clonare e modificare questo progetto sul tuo computer:
 
-## 🧞 Commands
+1.  **Clona il repository:**
+    ```bash
+    git clone https://github.com/AntonioWalter/Portfolio.git
+    cd Portfolio
+    ```
 
-All commands are run from the root of the project, from a terminal:
+2.  **Installa le dipendenze:**
+    ```bash
+    npm install
+    ```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+3.  **Avvia il server di sviluppo:**
+    ```bash
+    npm run dev
+    ```
+    Il sito sarà disponibile su `http://localhost:4321`.
 
-## 👀 Want to learn more?
+---
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 📂 Struttura del Progetto
+
+*   `src/components`: Componenti UI riutilizzabili (React e Astro).
+*   `src/pages`: Pagine del sito (Home, Projects, Awards, Skills).
+*   `src/layouts`: Layout base condivisi (Header, Footer, Meta tags).
+*   `src/styles`: CSS globali e variabili di tema.
+*   `src/i18n`: Configurazioni per le traduzioni.
+
+---
+
+## 📬 Contatti
+
+*   **LinkedIn**: [Antonio Walter De Fusco](https://www.linkedin.com/in/antonio-walter-de-fusco/)
+*   **GitHub**: [AntonioWalter](https://github.com/AntonioWalter)
+
+---
+
+Developed by **Antonio Walter De Fusco**.
