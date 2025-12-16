@@ -1,0 +1,291 @@
+/* Space Invaders Styles */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Manager & Overlay */
+.trigger-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
+    font-size: 2.5rem;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px #a855f7);
+}
+
+.trigger-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.game-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 15, 26, 0.4);
+    /* Slight dark overlay */
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.5s ease;
+}
+
+/* Game HUD */
+.game-hud {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    pointer-events: none;
+    color: white;
+    z-index: 2;
+}
+
+.game-hud h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 2rem;
+    line-height: 1.5;
+    color: #22d3ee;
+    margin-bottom: 1rem;
+    text-shadow: 4px 4px 0 #0f172a;
+}
+
+.game-hud p {
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0.5rem 0;
+    color: #e2e8f0;
+}
+
+/* Game Container */
+.game-container {
+    position: relative;
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    border-radius: 12px;
+    background: rgba(15, 15, 26, 0.6);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    padding: 8px;
+    max-width: 95vw;
+    display: flex;
+    justify-content: center;
+}
+
+.game-canvas {
+    display: block;
+    background: #0f0f1a;
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mobile Controls */
+.mobile-controls {
+    position: absolute;
+    bottom: -80px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+.controls-left {
+    display: flex;
+    gap: 15px;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    touch-action: manipulation;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.control-btn:active {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
+}
+
+.fire-btn {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.fire-btn:active {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+/* Screen (Game Over / Victory) */
+.game-screen {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    z-index: 10;
+    padding: 20px;
+}
+
+.game-screen h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.text-red {
+    color: #ef4444;
+}
+
+.text-green {
+    color: #22c55e;
+}
+
+.game-btn {
+    padding: 12px 32px;
+    background: white;
+    color: black;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.game-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Exit Button */
+.exit-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.exit-btn:hover {
+    background: rgba(239, 68, 68, 0.4);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Retro Button Style */
+.retro-btn {
+    font-family: 'Courier New', Courier, monospace;
+    background: transparent;
+    border: 2px solid #22d3ee;
+    color: #22d3ee;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #22d3ee;
+    transition: all 0.1s;
+    image-rendering: pixelated;
+    margin: 0 10px;
+}
+
+.retro-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #22d3ee;
+    background: rgba(34, 211, 238, 0.1) !important;
+}
+
+.retro-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+.retro-btn.danger {
+    border-color: #ef4444;
+    color: #ef4444;
+    box-shadow: 4px 4px 0 #ef4444;
+}
+
+.retro-btn.danger:hover {
+    box-shadow: 2px 2px 0 #ef4444;
+    background: rgba(239, 68, 68, 0.1) !important;
+}
+
+.retro-btn.success {
+    border-color: #22c55e;
+    color: #22c55e;
+    box-shadow: 4px 4px 0 #22c55e;
+}
+
+.retro-btn.success:hover {
+    box-shadow: 2px 2px 0 #22c55e;
+    background: rgba(34, 197, 94, 0.1) !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .game-hud {
+        top: 1rem;
+    }
+
+    .retro-btn {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .game-screen h2 {
+        font-size: 2rem;
+    }
+}

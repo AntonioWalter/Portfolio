@@ -1,0 +1,77 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import EasterEggManager from '../components/SpaceInvaders/EasterEggManager';
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPath?: string;
+  lang?: string;
+}
+
+const { 
+  title, 
+  description = "Portfolio di Antonio Walter De Fusco - Full-Stack Developer",
+  currentPath = Astro.url.pathname,
+  lang = 'it'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    
+    <!-- SEO -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <title>{title}</title>
+  </head>
+  <body>
+    <EasterEggManager client:idle />
+    <Sidebar currentPath={currentPath} />
+    <main class="main-content">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+  
+  .main-content {
+    min-height: 100vh;
+    padding-left: 380px;
+    padding-right: var(--space-12);
+  }
+  
+  @media (max-width: 1200px) {
+    .main-content {
+      padding-left: var(--space-6);
+      padding-right: var(--space-6);
+      padding-bottom: 140px;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .main-content {
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
+      padding-bottom: 120px;
+    }
+  }
+</style>

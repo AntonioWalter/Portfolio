@@ -1,0 +1,225 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaPrimary?: { label: string; href: string };
+  ctaSecondary?: { label: string; href: string };
+}
+
+const { 
+  title, 
+  subtitle,
+  ctaPrimary = { label: 'Vedi Progetti', href: '#projects' },
+  ctaSecondary = { label: 'Scarica CV', href: '/cv.pdf' }
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-badge animate-fade-in-up">
+      <span class="badge-dot"></span>
+      Disponibile per nuove opportunità
+    </div>
+    
+    <h1 class="hero-title animate-fade-in-up delay-100">
+      <slot name="title">
+        {title}
+      </slot>
+    </h1>
+    
+    <p class="hero-subtitle animate-fade-in-up delay-200">
+      {subtitle}
+    </p>
+    
+    <div class="hero-cta animate-fade-in-up delay-300">
+      <a href={ctaPrimary.href} class="btn btn-primary">
+        {ctaPrimary.label}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href={ctaSecondary.href} class="btn btn-secondary">
+        {ctaSecondary.label}
+      </a>
+    </div>
+    
+    <div class="hero-stats animate-fade-in-up delay-400">
+      <div class="stat">
+        <span class="stat-value">3+</span>
+        <span class="stat-label">Anni di esperienza</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">10+</span>
+        <span class="stat-label">Progetti completati</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">5+</span>
+        <span class="stat-label">Tecnologie</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Decorazioni -->
+  <div class="hero-decoration">
+    <div class="decoration-circle circle-1"></div>
+    <div class="decoration-circle circle-2"></div>
+    <div class="decoration-grid"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: var(--space-20);
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 900px;
+  }
+  
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    margin-bottom: var(--space-8);
+  }
+  
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-success);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, var(--text-6xl));
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+  }
+  
+  .hero-title :global(.gradient-text) {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto var(--space-8);
+    line-height: 1.7;
+  }
+  
+  .hero-cta {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-12);
+  }
+  
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+  
+  .stat {
+    text-align: center;
+  }
+  
+  .stat-value {
+    display: block;
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .stat-label {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--color-bg-tertiary);
+  }
+  
+  /* Decorazioni */
+  .hero-decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  .decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+  }
+  
+  .circle-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--color-primary);
+    top: -100px;
+    right: -100px;
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .circle-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--color-accent-secondary);
+    bottom: -50px;
+    left: -50px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+  
+  .decoration-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  
+  @media (max-width: 768px) {
+    .stat-divider {
+      display: none;
+    }
+    
+    .hero-stats {
+      gap: var(--space-6);
+    }
+  }
+</style>

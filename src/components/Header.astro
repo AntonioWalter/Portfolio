@@ -1,0 +1,155 @@
+---
+interface Props {
+  links?: { label: string; href: string }[];
+}
+
+const { links = [
+  { label: 'Home', href: '/' },
+  { label: 'Progetti', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
+
+] } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header">
+  <nav class="nav container">
+    <a href="/" class="logo">
+      <span class="logo-bracket">&lt;</span>
+      <span class="logo-text">Portfolio</span>
+      <span class="logo-bracket">/&gt;</span>
+    </a>
+    
+    <ul class="nav-links">
+      {links.map((link) => (
+        <li>
+          <a 
+            href={link.href} 
+            class:list={['nav-link', { active: currentPath === link.href }]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    
+
+    
+    <button class="mobile-menu-btn" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: var(--space-4) 0;
+    background: rgba(15, 15, 26, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text-heading);
+  }
+  
+  .logo:hover {
+    color: var(--color-text-heading);
+  }
+  
+  .logo-bracket {
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+  }
+  
+  .logo-text {
+    margin: 0 var(--space-1);
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: var(--space-8);
+    list-style: none;
+  }
+  
+  .nav-link {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    position: relative;
+    padding: var(--space-2) 0;
+    transition: color var(--transition-fast);
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width var(--transition-base);
+  }
+  
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-text-heading);
+  }
+  
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+  
+  .nav-cta {
+    padding: var(--space-2) var(--space-4);
+  }
+  
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+  }
+  
+  .mobile-menu-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    transition: all var(--transition-fast);
+  }
+  
+  @media (max-width: 768px) {
+    .nav-links,
+    .nav-cta {
+      display: none;
+    }
+    
+    .mobile-menu-btn {
+      display: flex;
+    }
+  }
+</style>

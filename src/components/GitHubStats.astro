@@ -1,0 +1,69 @@
+---
+interface Props {
+  username: string;
+}
+
+const { username } = Astro.props;
+---
+
+<div class="github-stats">
+  <!-- Header removed internally, now handled by parent -->
+  
+  <div class="github-content">
+    <img 
+      src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=6366f1&icon_color=22d3ee&text_color=e2e8f0&bg_color=00000000`}
+      alt="GitHub Stats"
+      loading="lazy"
+      class="github-chart"
+    />
+    
+    <img 
+      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=transparent&hide_border=true&title_color=6366f1&text_color=e2e8f0&bg_color=00000000`}
+      alt="Top Languages"
+      loading="lazy"
+      class="github-chart"
+    />
+  </div>
+  
+  <a href={`https://github.com/${username}`} target="_blank" rel="noopener" class="github-link btn btn-secondary">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      <polyline points="15 3 21 3 21 9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+    Visita il mio GitHub
+  </a>
+</div>
+
+<style>
+  .github-stats {
+    width: 100%;
+    gap: var(--space-4);
+  }
+  
+  .github-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  
+  .github-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  
+  .github-chart {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+  
+  .github-link {
+    align-self: center;
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+const technologies = [
+  // Languages
+  { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+  { name: 'JavaScript', icon: 'https://cdn.simpleicons.org/javascript' },
+  { name: 'TypeScript', icon: 'https://cdn.simpleicons.org/typescript' },
+  { name: 'SQL', icon: 'https://cdn.simpleicons.org/postgresql' },
+  { name: 'C', icon: 'https://cdn.simpleicons.org/c' },
+  
+  // Frontend
+  { name: 'React', icon: 'https://cdn.simpleicons.org/react' },
+  { name: 'HTML5', icon: 'https://cdn.simpleicons.org/html5' },
+  { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+  { name: 'Tailwind', icon: 'https://cdn.simpleicons.org/tailwindcss' },
+  { name: 'Astro', icon: 'https://cdn.simpleicons.org/astro' },
+
+  // Backend
+  { name: 'Node.js', icon: 'https://cdn.simpleicons.org/nodedotjs' },
+  { name: 'NestJS', icon: 'https://cdn.simpleicons.org/nestjs' },
+  
+  // Tools
+  { name: 'Docker', icon: 'https://cdn.simpleicons.org/docker' },
+  { name: 'Git', icon: 'https://cdn.simpleicons.org/git' },
+  { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+  { name: 'IntelliJ', icon: 'https://cdn.simpleicons.org/intellijidea' },
+];
+
+// Duplicate the array to ensure seamless scrolling
+const displayedTechs = [...technologies, ...technologies];
+---
+
+<div class="tech-scroller">
+  <div class="scroller-track">
+    {displayedTechs.map((tech, index) => (
+      <div class="tech-item">
+        <img src={tech.icon} alt={tech.name} width="40" height="40" loading="eager" />
+        <span class="tech-name">{tech.name}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .tech-scroller {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 40px 0;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    background: rgba(20, 20, 30, 0.4);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .scroller-track {
+    display: flex;
+    gap: 60px;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+  }
+
+  .tech-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+
+  .tech-item:hover {
+    transform: scale(1.1);
+  }
+
+  .tech-item img {
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+
+  .tech-item:hover img {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+  }
+
+  .tech-name {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Pause animation on hover */
+  .tech-scroller:hover .scroller-track {
+    animation-play-state: paused;
+  }
+
+  @media (max-width: 768px) {
+    .tech-scroller {
+      padding: 20px 0;
+    }
+    .scroller-track {
+      gap: 30px;
+    }
+  }
+</style>
