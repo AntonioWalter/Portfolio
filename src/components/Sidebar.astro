@@ -14,6 +14,7 @@ interface Props {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { currentPath = Astro.url.pathname } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash
 
 const navItems: { label: string; href: string; key: string; icon: string }[] = [
   { 
@@ -44,20 +45,20 @@ const navItems: { label: string; href: string; key: string; icon: string }[] = [
 
 function getLocalizedPath(path: string, l: string) {
   const isIt = l === 'it';
-  // Remove trailing slash 
-  let cleanPath = path.replace(/\/$/, '') || '/';
+  // Remove base and trailing slash 
+  let cleanPath = path.replace(new RegExp(`^${base}`), '').replace(/\/$/, '') || '/';
   
   // If current path has /it, strip it
   if (cleanPath.startsWith('/it')) {
     cleanPath = cleanPath.substring(3) || '/';
   }
   
-  // If target is IT, add /it
+  // If target is IT, add base + /it
   if (isIt) {
-    return cleanPath === '/' ? '/it' : `/it${cleanPath}`;
+    return cleanPath === '/' ? `${base}/it` : `${base}/it${cleanPath}`;
   }
-  // If target is EN (default), return cleanPath
-  return cleanPath;
+  // If target is EN (default), return base + cleanPath
+  return cleanPath === '/' ? `${base}/` : `${base}${cleanPath}`;
 }
 ---
 
@@ -66,7 +67,7 @@ function getLocalizedPath(path: string, l: string) {
   <div class="profile-header">
     <div class="profile-image">
       <img 
-        src="/profilo.png" 
+        src={`${import.meta.env.BASE_URL}profilo.png`}
         alt="Antonio Walter" 
         class="profile-placeholder" 
         onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=300&h=300'"
@@ -91,8 +92,8 @@ function getLocalizedPath(path: string, l: string) {
   <nav class="profile-nav">
     {navItems.map((item) => {
         const localizedHref = lang === 'it' 
-            ? (item.href === '/' ? '/it' : `/it${item.href}`) 
-            : item.href;
+            ? (item.href === '/' ? `${base}/it` : `${base}/it${item.href}`) 
+            : (item.href === '/' ? `${base}/` : `${base}${item.href}`);
             
         // Check active state smartly
         const isActive = currentPath === localizedHref || 

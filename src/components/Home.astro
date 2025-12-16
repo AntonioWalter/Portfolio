@@ -10,6 +10,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash
 ---
 
 <BaseLayout title={`Antonio Walter De Fusco | ${t('role')}`} lang={lang}>
@@ -34,7 +35,7 @@ const t = useTranslations(lang);
         <p class="hero-bio" set:html={t('hero.bio')} />
 
         <div class="hero-actions">
-          <a href={lang === 'it' ? '/it/projects' : '/projects'} class="btn-primary-glow">
+          <a href={lang === 'it' ? `${base}/it/projects` : `${base}/projects`} class="btn-primary-glow">
             {t('hero.button')}
             <span class="arrow-icon">→</span>
           </a>
@@ -46,7 +47,7 @@ const t = useTranslations(lang);
     <section class="highlights-section animate-fade-in-up delay-200">
       
       <!-- HACKATHON HIGHLIGHT (Full Width) -->
-      <a href={lang === 'it' ? '/it/awards' : '/awards'} class="highlight-card award">
+      <a href={lang === 'it' ? `${base}/it/awards` : `${base}/awards`} class="highlight-card award">
         <div class="card-bg-glow gold"></div>
         <div class="highlight-content">
           <div class="highlight-icon-box">🏆</div>
