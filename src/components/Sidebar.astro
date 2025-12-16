@@ -96,8 +96,11 @@ function getLocalizedPath(path: string, l: string) {
             : (item.href === '/' ? `${base}/` : `${base}${item.href}`);
             
         // Check active state smartly
+        const homeEN = `${base}/`;
+        const homeIT = `${base}/it`;
+        const isHome = localizedHref === homeEN || localizedHref === homeIT;
         const isActive = currentPath === localizedHref || 
-                         (localizedHref !== '/' && localizedHref !== '/it' && currentPath.startsWith(localizedHref));
+                         (!isHome && currentPath.startsWith(localizedHref));
         
         return (
           <a 
