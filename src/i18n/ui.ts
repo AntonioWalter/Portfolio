@@ -135,7 +135,13 @@ export const ui = {
 } as const;
 
 export function getLangFromUrl(url: URL) {
-    const [, lang] = url.pathname.split('/');
+    // Strip the base path (e.g., /Portfolio) from pathname
+    const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+    let pathname = url.pathname;
+    if (base && pathname.startsWith(base)) {
+        pathname = pathname.substring(base.length) || '/';
+    }
+    const [, lang] = pathname.split('/');
     if (lang in ui) return lang as keyof typeof ui;
     return defaultLang;
 }
