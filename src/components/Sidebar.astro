@@ -67,7 +67,7 @@ function getLocalizedPath(path: string, l: string) {
   <div class="profile-header">
     <div class="profile-image">
       <img 
-        src={`${import.meta.env.BASE_URL}profilo.png`}
+        src={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/profilo.png`}
         alt="Antonio Walter" 
         class="profile-placeholder" 
         onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=300&h=300'"
