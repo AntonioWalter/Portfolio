@@ -95,12 +95,14 @@ function getLocalizedPath(path: string, l: string) {
             ? (item.href === '/' ? `${base}/it` : `${base}/it${item.href}`) 
             : (item.href === '/' ? `${base}/` : `${base}${item.href}`);
             
-        // Check active state smartly
-        const homeEN = `${base}/`;
+        // Check active state smartly - normalize paths by removing trailing slashes
+        const normalizedCurrentPath = currentPath.replace(/\/$/, '') || '/';
+        const normalizedHref = localizedHref.replace(/\/$/, '') || '/';
+        const homeEN = base || '';
         const homeIT = `${base}/it`;
-        const isHome = localizedHref === homeEN || localizedHref === homeIT;
-        const isActive = currentPath === localizedHref || 
-                         (!isHome && currentPath.startsWith(localizedHref));
+        const isHome = normalizedHref === homeEN || normalizedHref === homeIT;
+        const isActive = normalizedCurrentPath === normalizedHref || 
+                         (!isHome && normalizedCurrentPath.startsWith(normalizedHref + '/'));
         
         return (
           <a 
