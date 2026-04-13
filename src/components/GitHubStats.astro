@@ -4,66 +4,184 @@ interface Props {
 }
 
 const { username } = Astro.props;
+
+// --- SSR: Fetch calendar SVG + languages at build time ---
+let calendarSvg = '';
+let topLanguages: { name: string; pct: number; color: string }[] = [];
+
+const LANG_COLORS: Record<string, string> = {
+  TypeScript: '#3178c6', JavaScript: '#f1e05a', Python: '#3572A5',
+  Java: '#b07219', PHP: '#4F5D95', HTML: '#e34c26', CSS: '#563d7c',
+  Dart: '#00B4AB', Astro: '#ff5a03', Shell: '#89e051', Jupyter: '#F37626',
+};
+
+try {
+  const ctrl = new AbortController();
+  const tid = setTimeout(() => ctrl.abort(), 5000);
+
+  const [reposRes, chartRes] = await Promise.all([
+    fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { signal: ctrl.signal }),
+    fetch(`https://ghchart.rshah.org/6366f1/${username}`, { signal: ctrl.signal }),
+  ]);
+  clearTimeout(tid);
+
+  if (reposRes.ok) {
+    const repos = await reposRes.json();
+    if (Array.isArray(repos)) {
+      const langs: Record<string, number> = {};
+      repos.forEach((r: any) => { if (r.language) langs[r.language] = (langs[r.language] || 0) + 1; });
+      const total = Object.values(langs).reduce((a, b) => a + b, 0);
+      topLanguages = Object.entries(langs)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([name, count]) => ({
+          name, pct: Math.round((count / total) * 100),
+          color: LANG_COLORS[name] || '#6366f1',
+        }));
+    }
+  }
+
+  if (chartRes.ok) {
+    calendarSvg = await chartRes.text();
+  }
+} catch (e) {
+  console.warn('GitHub fetch (graceful):', e);
+}
+
+const t = {
+  it: { visit: 'Visita il profilo GitHub' },
+  en: { visit: 'Visit GitHub Profile' },
+};
+const lang = Astro.url.pathname.includes('/en/') ? 'en' : 'it';
+const ui = t[lang as keyof typeof t];
 ---
 
-<div class="github-stats">
-  <!-- Header removed internally, now handled by parent -->
-  
-  <div class="github-content">
-    <img 
-      src={`https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=6366f1&icon_color=22d3ee&text_color=e2e8f0&bg_color=00000000`}
-      alt="GitHub Stats"
-      loading="lazy"
-      class="github-chart"
-    />
-    
-    <img 
-      src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=transparent&hide_border=true&title_color=6366f1&text_color=e2e8f0&bg_color=00000000`}
-      alt="Top Languages"
-      loading="lazy"
-      class="github-chart"
-    />
+{/* --- CONTRIBUTION CALENDAR --- */}
+{calendarSvg && (
+  <div class="gh-calendar" set:html={calendarSvg} />
+)}
+
+{/* --- TOP LANGUAGES BAR --- */}
+{topLanguages.length > 0 && (
+  <div class="gh-languages">
+    <div class="gh-lang-bar">
+      {topLanguages.map((l) => (
+        <div class="gh-seg" style={`flex:${l.pct}; background:${l.color};`} />
+      ))}
+    </div>
+    <div class="gh-lang-legend">
+      {topLanguages.map((l) => (
+        <span class="gh-lang-tag">
+          <span class="gh-dot" style={`background:${l.color}`} />
+          {l.name} <span class="gh-pct">{l.pct}%</span>
+        </span>
+      ))}
+    </div>
   </div>
-  
-  <a href={`https://github.com/${username}`} target="_blank" rel="noopener" class="github-link btn btn-secondary">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-      <polyline points="15 3 21 3 21 9"/>
-      <line x1="10" y1="14" x2="21" y2="3"/>
-    </svg>
-    Visita il mio GitHub
-  </a>
-</div>
+)}
+
+{/* --- CTA --- */}
+<a href={`https://github.com/${username}`} target="_blank" rel="noopener" class="gh-link">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    <polyline points="15 3 21 3 21 9"/>
+    <line x1="10" y1="14" x2="21" y2="3"/>
+  </svg>
+  {ui.visit}
+</a>
 
 <style>
-  .github-stats {
+  /* CALENDAR — fully contained, never overflows */
+  .gh-calendar {
     width: 100%;
-    gap: var(--space-4);
+    overflow: hidden;
+    margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
   }
-  
-  .github-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-weight: 600;
-    color: var(--color-text-heading);
-  }
-  
-  .github-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    align-items: center;
-  }
-  
-  .github-chart {
+
+  .gh-calendar :global(svg) {
+    display: block;
     width: 100%;
-    max-width: 400px;
     height: auto;
-    border-radius: var(--radius-lg);
   }
-  
-  .github-link {
-    align-self: center;
+
+  /* Make the empty squares match the dark theme */
+  .gh-calendar :global(rect[style*="fill:#EEEEEE"]) {
+    fill: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  /* Make the month/day labels readable on dark bg */
+  .gh-calendar :global(text) {
+    fill: rgba(255, 255, 255, 0.25) !important;
+  }
+
+  /* LANGUAGES */
+  .gh-languages {
+    margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
+  }
+
+  .gh-lang-bar {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    gap: 3px;
+    margin-bottom: 10px;
+  }
+
+  .gh-seg {
+    border-radius: 3px;
+    min-width: 6px;
+  }
+
+  .gh-lang-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .gh-lang-tag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .gh-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .gh-pct {
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* LINK — same style as soft-skill-item */
+  .gh-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: rgba(30, 30, 45, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    z-index: 2;
+    position: relative;
+  }
+
+  .gh-link:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-4px);
   }
 </style>

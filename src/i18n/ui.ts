@@ -34,6 +34,12 @@ export const ui = {
         'card.sintonia.sub': 'Salute Mentale',
         'card.sintonia.title': 'Sintonia',
         'card.sintonia.desc': 'Ecosistema intelligente per il triage e il monitoraggio della salute mentale.',
+        'card.signify.sub': 'AI & Computer Vision',
+        'card.signify.title': 'Signify',
+        'card.signify.desc': 'Traduzione ASL in tempo reale con Deep Learning.',
+        'card.sintonia_ia.sub': 'AI Medica',
+        'card.sintonia_ia.title': 'SINTON-IA',
+        'card.sintonia_ia.desc': 'Monitoraggio predittivo e prevenzione del rischio clinico.',
 
         // PROJECTS PAGE
         'projects.title': 'I miei',
@@ -42,6 +48,8 @@ export const ui = {
 
         'project.verita.desc': 'Tracciabilità Made in Italy con RFID.',
         'project.sintonia.desc': 'Ecosistema intelligente per il triage e il monitoraggio della salute mentale.',
+        'project.signify.desc': 'Traduzione della Lingua dei Segni (ASL) in tempo reale tramite Deep Learning e Computer Vision.',
+        'project.sintonia_ia.desc': 'Suite di Intelligenza Artificiale per il monitoraggio preventivo della salute mentale (Rischio Suicidario, Churn Prevention, Depression Prediction).',
         'project.treetime.desc': 'E-commerce di piantumazione sostenibile.',
         'project.culturia.desc': 'Valorizzazione del patrimonio culturale dei piccoli borghi.',
         'project.tennis.desc': 'Gestionale avanzato per l\'organizzazione di tornei tennistici professionistici.',
@@ -97,6 +105,12 @@ export const ui = {
         'card.sintonia.sub': 'Mental Health',
         'card.sintonia.title': 'Sintonia',
         'card.sintonia.desc': 'Intelligent ecosystem for triage and monitoring of mental health.',
+        'card.signify.sub': 'AI & Computer Vision',
+        'card.signify.title': 'Signify',
+        'card.signify.desc': 'Real-time ASL translation with Deep Learning.',
+        'card.sintonia_ia.sub': 'Medical AI',
+        'card.sintonia_ia.title': 'SINTON-IA',
+        'card.sintonia_ia.desc': 'Predictive monitoring and clinical risk prevention.',
 
         // PROJECTS PAGE
         'projects.title': 'My',
@@ -105,6 +119,8 @@ export const ui = {
 
         'project.verita.desc': 'Made in Italy traceability with RFID.',
         'project.sintonia.desc': 'Intelligent ecosystem for mental health triage and monitoring.',
+        'project.signify.desc': 'Real-time ASL Sign Language translation using Deep Learning and Computer Vision.',
+        'project.sintonia_ia.desc': 'AI suite for preventive mental health monitoring (Suicide Risk, Churn Prevention, Depression Prediction).',
         'project.treetime.desc': 'Sustainable planting e-commerce.',
         'project.culturia.desc': 'Enhancement of small villages cultural heritage.',
         'project.tennis.desc': 'Advanced management system for professional tennis tournaments.',

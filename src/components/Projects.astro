@@ -13,6 +13,24 @@ const t = useTranslations(lang);
 
 const projects = [
   {
+    title: 'Signify',
+    description: t('project.signify.desc'),
+    tags: ['Deep Learning', 'MediaPipe', 'Python'],
+    icon: '👋',
+    color: 'orange',
+    category: 'University | AI Research',
+    link: 'https://github.com/AntonioWalter/Signify'
+  },
+  {
+    title: 'SINTON-IA',
+    description: t('project.sintonia_ia.desc'),
+    tags: ['NLP', 'Genetic Algorithm', 'FastAPI'],
+    icon: '🧠',
+    color: 'red',
+    category: 'University | AI Research',
+    link: 'https://github.com/AntonioWalter/SINTON-IA'
+  },
+  {
     title: 'VerIta',
     description: t('project.verita.desc'),
     tags: ['RFID', 'Web App', 'Typescript'],
@@ -163,6 +181,8 @@ const projects = [
   }
   .project-card:hover .card-bg-glow { opacity: 0.25; }
 
+  .orange { background: #f97316; }
+  .red { background: #ef4444; }
   .gold { background: #fbbf24; }
   .green { background: #22c55e; }
   .purple { background: #a855f7; }

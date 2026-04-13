@@ -60,6 +60,37 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // Remove trailing sla
         <div class="highlight-arrow">↗</div>
       </a>
 
+      <!-- NEW FEATURED PROJECTS (Signify & SINTON-IA) -->
+      <div class="split-row">
+        <!-- Signify Project -->
+        <a href="https://github.com/AntonioWalter/Signify" target="_blank" class="highlight-card project">
+          <div class="card-bg-glow orange"></div>
+          <div class="highlight-content">
+            <div class="highlight-icon-box orange">👋</div>
+            <div class="highlight-text">
+              <span class="sub-label">{t('card.signify.sub')}</span>
+              <h2>{t('card.signify.title')}</h2>
+              <p>{t('card.signify.desc')}</p>
+            </div>
+          </div>
+          <div class="highlight-arrow">↗</div>
+        </a>
+
+        <!-- SINTON-IA Project -->
+        <a href="https://github.com/AntonioWalter/SINTON-IA" target="_blank" class="highlight-card project">
+          <div class="card-bg-glow red"></div>
+          <div class="highlight-content">
+            <div class="highlight-icon-box red">🧠</div>
+            <div class="highlight-text">
+              <span class="sub-label">{t('card.sintonia_ia.sub')}</span>
+              <h2>{t('card.sintonia_ia.title')}</h2>
+              <p>{t('card.sintonia_ia.desc')}</p>
+            </div>
+          </div>
+          <div class="highlight-arrow">↗</div>
+        </a>
+      </div>
+
       <!-- FEATURED PROJECT & TECH (Split) -->
       <div class="split-row">
         <!-- Culturia Project -->
@@ -246,6 +277,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // Remove trailing sla
   .purple { background: #a855f7; }
   .cyan { background: #22d3ee; }
   .emerald { background: #10b981; }
+  .orange { background: #f97316; }
+  .red { background: #ef4444; }
 
   /* Content Layouts */
   .highlight-content {
@@ -317,6 +350,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // Remove trailing sla
 
   .highlight-card:hover .highlight-icon-box.emerald {
     background: rgba(16, 185, 129, 0.25);
+  }
+
+  .highlight-icon-box.orange {
+    background: rgba(249, 115, 22, 0.15);
+  }
+
+  .highlight-card:hover .highlight-icon-box.orange {
+    background: rgba(249, 115, 22, 0.25);
+  }
+
+  .highlight-icon-box.red {
+    background: rgba(239, 68, 68, 0.15);
+  }
+
+  .highlight-card:hover .highlight-icon-box.red {
+    background: rgba(239, 68, 68, 0.25);
   }
 
   .highlight-arrow {
